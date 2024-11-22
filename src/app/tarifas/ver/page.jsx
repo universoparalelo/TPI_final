@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Table from './Table';
 import Pagination from './Pagination';
+import Searcher from './Searcher.jsx';
 
 const tarifas = [
     { vehiculo: 'Toyota Corolla', marca: 'Toyota', modelo: '2024', categoria: 'Sedán', frecuencia: 'Diario', precio: '$50' },
@@ -39,49 +41,33 @@ const tarifas = [
 ];
 
 export default function Page() {
+    const [query, setQuery] = useState("");
     const [paginaActual, setPaginaActual] = useState(1);
+
+    // Filtrar tarifas por nombre
+    const tarifasFiltradas = tarifas.filter((tarifa) =>
+        tarifa.vehiculo.toLowerCase().includes(query.toLowerCase())
+    );
+
+    // Configurar la paginación
     const tarifasPorPagina = 10;
     const totalPaginas = Math.ceil(tarifas.length / tarifasPorPagina);
-    const tarifasMostradas = tarifas.slice((paginaActual - 1) * tarifasPorPagina, paginaActual * tarifasPorPagina);
+    const tarifasMostradas = tarifasFiltradas.slice((paginaActual - 1) * tarifasPorPagina, paginaActual * tarifasPorPagina);
+
+    useEffect(() => {
+        setPaginaActual(1);
+    }, [query]);
     
     return (
         <div className="relative isolate px-6 pt-14 lg:px-8">
             <div className="bg-gray-50 p-6 my-10 rounded-lg shadow">
                 <div className="flex justify-between items-center mb-4">
-                    <div>
-                        <h2 className="text-lg font-semibold text-gray-800">Tarifas</h2>
-                        {/* Filtro */}
-                    </div>
+                    <h2 className="text-lg font-semibold text-gray-800">Tarifas</h2>
+                    <Searcher query={query} setQuery={setQuery}></Searcher>
                     {/* <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700">Añadir tarifa</button> */}
                 </div>
 
-                <div className="overflow-x-auto min-h-[500px]">
-                    <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-                        <thead className="bg-gray-100 text-gray-600 text-sm">
-                            <tr>
-                                <th className="text-left py-3 px-4 font-medium w-1/5">Vehículo</th>
-                                <th className="text-left py-3 px-4 font-medium w-1/5">Marca</th>
-                                <th className="text-left py-3 px-4 font-medium w-1/5">Modelo</th>
-                                <th className="text-left py-3 px-4 font-medium w-1/5">Categoría</th>
-                                <th className="text-left py-3 px-4 font-medium w-1/5">Frecuencia</th>
-                                <th className="text-left py-3 px-4 font-medium w-1/5">Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-gray-700 text-sm divide-y divide-gray-200">
-                            {tarifasMostradas.map((tarifa, index) => (
-                            <tr key={index}>
-                                <td className="text-left py-3 px-4">{tarifa.vehiculo}</td>
-                                <td className="text-left py-3 px-4">{tarifa.marca}</td>
-                                <td className="text-left py-3 px-4">{tarifa.modelo}</td>
-                                <td className="text-left py-3 px-4">{tarifa.categoria}</td>
-                                <td className="text-left py-3 px-4">{tarifa.frecuencia}</td>
-                                <td className="text-left py-3 px-4">{tarifa.precio}</td>
-                                {/* <td className="py-3 px-4 text-blue-600 hover:underline cursor-pointer">Edit</td> */}
-                            </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <Table tarifasMostradas={tarifasMostradas}></Table>
 
                 <Pagination totalPaginas={totalPaginas} paginaActual={paginaActual} setPaginaActual={setPaginaActual}></Pagination>
             </div>

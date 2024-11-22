@@ -1,9 +1,5 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-
-
-
 export default function Pagination({ totalPaginas, paginaActual, setPaginaActual }) {  
     // Funciones para manejar los botones de paginación
     const handlePrevious = () => {
