@@ -28,7 +28,7 @@ export default function Login({ onClose, onLoginSuccess }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
+    <div className="fixed inset-0 z-99 flex items-center justify-center bg-gray-800 bg-opacity-75">
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-lg font-semibold mb-4">Login</h2>
         <form>
