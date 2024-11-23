@@ -1,4 +1,3 @@
-
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./Navbar";
@@ -16,12 +15,11 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+
+
 export const metadata = {
   title: "Taller mecanico",
   description: "RTO y servicios mecanicos",
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({ children }) {

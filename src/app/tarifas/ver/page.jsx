@@ -1,58 +1,76 @@
-import React from 'react';
+'use client';
 
-const users = [
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Courtney Henry', title: 'Designer', email: 'courtney.henry@example.com', role: 'Admin' },
-    { name: 'Tom Cook', title: 'Director of Product', email: 'tom.cook@example.com', role: 'Member' },
-    { name: 'Whitney Francis', title: 'Copywriter', email: 'whitney.francis@example.com', role: 'Admin' },
-    { name: 'Leonard Krasner', title: 'Senior Designer', email: 'leonard.krasner@example.com', role: 'Owner' },
-    { name: 'Floyd Miles', title: 'Principal Designer', email: 'floyd.miles@example.com', role: 'Member' },
+import React, { useState, useEffect } from 'react';
+import Table from './Table';
+import Pagination from './Pagination';
+import Searcher from './Searcher.jsx';
+
+const tarifas = [
+    { vehiculo: 'Toyota Corolla', marca: 'Toyota', modelo: '2024', categoria: 'Sedán', frecuencia: 'Diario', precio: '$50' },
+    { vehiculo: 'Honda Civic', marca: 'Honda', modelo: '2023', categoria: 'Sedán', frecuencia: 'Diario', precio: '$55' },
+    { vehiculo: 'Ford Mustang', marca: 'Ford', modelo: '2023', categoria: 'Deportivo', frecuencia: 'Diario', precio: '$120' },
+    { vehiculo: 'Chevrolet Silverado', marca: 'Chevrolet', modelo: '2024', categoria: 'Camioneta', frecuencia: 'Diario', precio: '$80' },
+    { vehiculo: 'Tesla Model 3', marca: 'Tesla', modelo: '2023', categoria: 'Eléctrico', frecuencia: 'Diario', precio: '$100' },
+    { vehiculo: 'BMW X5', marca: 'BMW', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$150' },
+    { vehiculo: 'Audi A4', marca: 'Audi', modelo: '2023', categoria: 'Sedán', frecuencia: 'Diario', precio: '$90' },
+    { vehiculo: 'Mercedes-Benz C-Class', marca: 'Mercedes-Benz', modelo: '2023', categoria: 'Sedán', frecuencia: 'Diario', precio: '$130' },
+    { vehiculo: 'Nissan Altima', marca: 'Nissan', modelo: '2023', categoria: 'Sedán', frecuencia: 'Diario', precio: '$60' },
+    { vehiculo: 'Hyundai Sonata', marca: 'Hyundai', modelo: '2023', categoria: 'Sedán', frecuencia: 'Diario', precio: '$65' },
+    { vehiculo: 'Jeep Grand Cherokee', marca: 'Jeep', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$110' },
+    { vehiculo: 'Lexus RX 350', marca: 'Lexus', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$140' },
+    { vehiculo: 'Chevrolet Equinox', marca: 'Chevrolet', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$85' },
+    { vehiculo: 'Toyota Tacoma', marca: 'Toyota', modelo: '2024', categoria: 'Camioneta', frecuencia: 'Diario', precio: '$95' },
+    { vehiculo: 'Ford F-150', marca: 'Ford', modelo: '2023', categoria: 'Camioneta', frecuencia: 'Diario', precio: '$105' },
+    { vehiculo: 'Ram 1500', marca: 'Ram', modelo: '2023', categoria: 'Camioneta', frecuencia: 'Diario', precio: '$110' },
+    { vehiculo: 'BMW M3', marca: 'BMW', modelo: '2023', categoria: 'Deportivo', frecuencia: 'Diario', precio: '$180' },
+    { vehiculo: 'Chevrolet Camaro', marca: 'Chevrolet', modelo: '2023', categoria: 'Deportivo', frecuencia: 'Diario', precio: '$150' },
+    { vehiculo: 'Porsche 911', marca: 'Porsche', modelo: '2023', categoria: 'Deportivo', frecuencia: 'Diario', precio: '$300' },
+    { vehiculo: 'Tesla Model Y', marca: 'Tesla', modelo: '2023', categoria: 'Eléctrico', frecuencia: 'Diario', precio: '$120' },
+    { vehiculo: 'Ford Explorer', marca: 'Ford', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$115' },
+    { vehiculo: 'Honda CR-V', marca: 'Honda', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$85' },
+    { vehiculo: 'Toyota RAV4', marca: 'Toyota', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$90' },
+    { vehiculo: 'Kia Sorento', marca: 'Kia', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$95' },
+    { vehiculo: 'Mazda CX-5', marca: 'Mazda', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$100' },
+    { vehiculo: 'Nissan Rogue', marca: 'Nissan', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$90' },
+    { vehiculo: 'Hyundai Tucson', marca: 'Hyundai', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$95' },
+    { vehiculo: 'Subaru Outback', marca: 'Subaru', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$85' },
+    { vehiculo: 'BMW 7 Series', marca: 'BMW', modelo: '2023', categoria: 'Sedán', frecuencia: 'Diario', precio: '$220' },
+    { vehiculo: 'Jaguar F-Type', marca: 'Jaguar', modelo: '2023', categoria: 'Deportivo', frecuencia: 'Diario', precio: '$250' },
+    { vehiculo: 'Land Rover Range Rover', marca: 'Land Rover', modelo: '2023', categoria: 'SUV', frecuencia: 'Diario', precio: '$280' },
+    { vehiculo: 'Ferrari 488', marca: 'Ferrari', modelo: '2023', categoria: 'Deportivo', frecuencia: 'Diario', precio: '$400' }
 ];
 
-export default function Page(){
+export default function Page() {
+    const [query, setQuery] = useState("");
+    const [paginaActual, setPaginaActual] = useState(1);
+
+    // Filtrar tarifas por nombre
+    const tarifasFiltradas = tarifas.filter((tarifa) =>
+        tarifa.vehiculo.toLowerCase().includes(query.toLowerCase())
+    );
+
+    // Configurar la paginación
+    const tarifasPorPagina = 10;
+    const totalPaginas = Math.ceil(tarifas.length / tarifasPorPagina);
+    const tarifasMostradas = tarifasFiltradas.slice((paginaActual - 1) * tarifasPorPagina, paginaActual * tarifasPorPagina);
+
+    useEffect(() => {
+        setPaginaActual(1);
+    }, [query]);
+    
     return (
         <div className="relative isolate px-6 pt-14 lg:px-8">
-
-            <div className="bg-gray-50 p-6 rounded-lg shadow">
-            <div className="flex justify-between items-center mb-4">
-                <div>
-                <h2 className="text-lg font-semibold text-gray-800">Users</h2>
-                <p className="text-sm text-gray-500">
-                    A list of all the users in your account including their name, title, email and role.
-                </p>
+            <div className="bg-gray-50 p-6 my-10 rounded-lg shadow">
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold text-gray-800">Tarifas</h2>
+                    <Searcher query={query} setQuery={setQuery}></Searcher>
+                    {/* <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700">Añadir tarifa</button> */}
                 </div>
-                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700">
-                Add user
-                </button>
-            </div>
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-                <thead className="bg-gray-100 text-gray-600 text-sm">
-                    <tr>
-                    <th className="text-left py-3 px-4 font-medium">Name</th>
-                    <th className="text-left py-3 px-4 font-medium">Title</th>
-                    <th className="text-left py-3 px-4 font-medium">Email</th>
-                    <th className="text-left py-3 px-4 font-medium">Role</th>
-                    <th className="text-left py-3 px-4 font-medium"></th>
-                    </tr>
-                </thead>
-                <tbody className="text-gray-700 text-sm divide-y divide-gray-200">
-                    {users.map((user, index) => (
-                    <tr key={index}>
-                        <td className="py-3 px-4">{user.name}</td>
-                        <td className="py-3 px-4">{user.title}</td>
-                        <td className="py-3 px-4">{user.email}</td>
-                        <td className="py-3 px-4">{user.role}</td>
-                        <td className="py-3 px-4 text-blue-600 hover:underline cursor-pointer">
-                        Edit
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-                </table>
-            </div>
-            </div>
 
+                <Table tarifasMostradas={tarifasMostradas}></Table>
+
+                <Pagination totalPaginas={totalPaginas} paginaActual={paginaActual} setPaginaActual={setPaginaActual}></Pagination>
+            </div>
         </div>
     )
 }
