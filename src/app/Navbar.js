@@ -15,15 +15,22 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
   const [isLogged, setIsLogged] = useState(false)
-  const [userType, setUserType] = useState(null)
+  let filterNavigation = navigation.filter((item) => item.name !== 'Asignar tarifas');
+  const [filteredNavigation, setFilteredNavigation] = useState(filterNavigation)
 
-  const handleLoginSuccess = (type) => {
+  const handleLoginSuccess = () => {
     setIsLogged(true)
-    setUserType(type)
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.type == 'admin' || user.type == 'mecanico') {
+      setFilteredNavigation(navigation)
+    } 
   }
 
-  const filteredNavigation = navigation.filter((item) => item.name !== 'Asignar tarifas')
-  // console.log(filteredNavigation)
+  const handleLogout = () => {
+    setIsLogged(false)
+    setFilteredNavigation(filterNavigation)
+    localStorage.removeItem('user') 
+  }
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -42,8 +49,8 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            hidden={mobileMenuOpen}
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 z-30"
+            
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
@@ -63,7 +70,7 @@ export default function Navbar() {
           onClick={isLogged ? handleLogout : () => setLoginOpen(true)}
           className="text-lg font-semibold text-gray-900 hidden lg:flex"
         >
-          {isLogged ? "Log out" : "Log in"}
+          {isLogged ? "Cerrar sesion" : "Iniciar sesion"}
         </button>
 
         {mobileMenuOpen && (
@@ -91,7 +98,7 @@ export default function Navbar() {
                   onClick={isLogged ? handleLogout : () => setLoginOpen(true)}
                   className="text-lg font-semibold text-gray-900"
                 >
-                  {isLogged ? "Log out" : "Log in"}
+                  {isLogged ? "Cerrar sesion" : "Iniciar sesion"}
                 </button>
               </div>
             </DialogPanel>

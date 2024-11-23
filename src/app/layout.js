@@ -16,11 +16,12 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-
-
 export const metadata = {
   title: "Taller mecanico",
   description: "RTO y servicios mecanicos",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
