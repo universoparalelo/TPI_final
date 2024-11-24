@@ -62,7 +62,7 @@ export default function Page() {
         <div className="relative isolate px-6 pt-14 lg:px-8">
             <div className="bg-gray-50 p-6 my-10 rounded-lg shadow">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-semibold text-gray-800">Tarifas</h2>
+                    <h2 className="text-lg font-semibold text-gray-800">Tarifas Actuales</h2>
                     <Searcher query={query} setQuery={setQuery}></Searcher>
                     {/* <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700">Añadir tarifa</button> */}
                 </div>
