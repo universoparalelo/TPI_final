@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Login from './Login'
+import { useAuth } from './AuthProvider' 
 
 const navigation = [
   { name: 'Ver tarifas', href: '/tarifas/ver' },
@@ -12,27 +13,13 @@ const navigation = [
 ]
 
 export default function Navbar() {
+  const { isLogged, user, login, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
-  const [isLogged, setIsLogged] = useState(false)
-  let filterNavigation = navigation.filter((item) => item.name !== 'Asignar tarifas');
-  const [filteredNavigation, setFilteredNavigation] = useState(filterNavigation)
 
-  const handleLoginSuccess = () => {
-    setIsLogged(true)
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user.type == 'admin' || user.type == 'mecanico') {
-      setFilteredNavigation(navigation)
-    } 
-  }
-
-  const handleLogout = () => {
-    setIsLogged(false)
-    setFilteredNavigation(filterNavigation)
-    localStorage.removeItem('user') 
-  }
-
-  console.log('esta logueado', isLogged)
+  const filteredNavigation = isLogged && (user === 'admin' || user === 'mecanico')
+    ? navigation
+    : navigation.filter((item) => item.name !== 'Asignar tarifas');
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -48,17 +35,7 @@ export default function Navbar() {
             <p className="text-lg font-semibold text-indigo-600">RTO</p>
           </a>
         </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 z-30"
-            
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="h-6 w-6" />
-          </button>
-        </div>
+        
         <div className="hidden lg:flex lg:gap-x-8 items-center justify-center flex-1">
           {filteredNavigation.map((item) => (
             <a key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
@@ -68,12 +45,24 @@ export default function Navbar() {
           <div className="ml-8">
           </div>
         </div>
+
+        <div className="hidden lg:flex">
+          <button
+            type="button"
+            onClick={isLogged ? logout : () => setLoginOpen(true)}
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 z-30"
+          >
+            <span className="sr-only">Open main menu</span>
+            {isLogged ? 'Cerrar sesión' : 'Iniciar sesión'}
+          </button>
+        </div>
+
         <button
           type="button"
-          onClick={isLogged ? handleLogout : () => setLoginOpen(true)}
-          className="text-lg font-semibold text-gray-900 hidden lg:flex"
+          onClick={() => setMobileMenuOpen(true)}
+          className="lg:hidden text-lg font-semibold text-gray-900"
         >
-          {isLogged ? "Cerrar sesion" : "Iniciar sesion"}
+          <Bars3Icon aria-hidden="true" className="h-6 w-6" />
         </button>
 
         {mobileMenuOpen && (
@@ -98,7 +87,7 @@ export default function Navbar() {
                 ))}
                 <button
                   type="button"
-                  onClick={isLogged ? handleLogout : () => setLoginOpen(true)}
+                  onClick={isLogged ? logout : () => setLoginOpen(true)}
                   className="text-lg font-semibold text-gray-900"
                 >
                   {isLogged ? "Cerrar sesion" : "Iniciar sesion"}
@@ -111,7 +100,10 @@ export default function Navbar() {
         {loginOpen && (
           <Login
             onClose={() => setLoginOpen(false)}
-            onLoginSuccess={handleLoginSuccess}
+            onLoginSuccess={(user) => {
+              login(user);
+              setLoginOpen(false);
+            }}
           />
         )}
       </nav>

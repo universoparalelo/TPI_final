@@ -2,10 +2,12 @@
 import { useState } from 'react';
 
 const carBrands = {
-    Toyota: ['Corolla', 'Camry', 'Prius'],
-    Ford: ['Fiesta', 'Focus', 'Mustang'],
-    Honda: ['Civic', 'Accord', 'CR-V'],
-  };
+  Toyota: ['Corolla', 'Camry', 'Prius', 'Yaris', 'Avalon', 'Highlander', 'RAV4', 'Tacoma', 'Tundra', 'Sienna'],
+  Ford: ['Fiesta', 'Focus', 'Mustang', 'Fusion', 'Escape', 'Explorer', 'Edge', 'Expedition', 'Ranger', 'F-150'],
+  Honda: ['Civic', 'Accord', 'CR-V', 'Fit', 'HR-V', 'Pilot', 'Odyssey', 'Ridgeline', 'Passport', 'Insight'],
+  Chevrolet: ['Spark', 'Malibu', 'Impala', 'Camaro', 'Equinox', 'Traverse', 'Tahoe', 'Suburban', 'Colorado', 'Silverado'],
+  Nissan: ['Versa', 'Sentra', 'Altima', 'Maxima', 'Leaf', 'Juke', 'Rogue', 'Murano', 'Pathfinder', 'Armada'],
+};
   
   export default function Page() {
     const [showRequisitos, setShowRequisitos] = useState(false);
