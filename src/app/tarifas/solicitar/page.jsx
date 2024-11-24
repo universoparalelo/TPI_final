@@ -124,30 +124,43 @@ const carBrands = {
               <legend className="text-sm font-semibold text-gray-900">Seleccione la fecha y hora</legend>
               <div className="mt-6 space-y-6">
                 <div className="relative flex gap-x-3">
-                <div className="flex flex-col">
-                  <label htmlFor="fecha" className="block text-sm font-medium text-gray-900">
-                  Fecha
-                  </label>
-                  <input
-                  id="fecha"
-                  name="fecha"
-                  type="date"
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                  required
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="hora" className="block text-sm font-medium text-gray-900">
-                  Hora
-                  </label>
-                  <input
-                  id="hora"
-                  name="hora"
-                  type="time"
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                  required
-                  />
-                </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="fecha" className="block text-sm font-medium text-gray-900">
+                      Fecha
+                    </label>
+                    <select
+                      id="fecha"
+                      name="fecha"
+                      className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      required
+                    >
+                      <option value="">Seleccione una fecha</option>
+                      <option value="2024-01-01">1 de Enero, 2024</option>
+                      <option value="2024-01-02">2 de Enero, 2024</option>
+                      <option value="2024-01-03">3 de Enero, 2024</option>
+                      {/* Agrega más opciones según sea necesario */}
+                    </select>
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="hora" className="block text-sm font-medium text-gray-900">
+                      Hora
+                    </label>
+                    <select
+                      id="hora"
+                      name="hora"
+                      className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      required
+                    >
+                      <option value="">Seleccione una hora</option>
+                      <option value="09:00">09:00 AM</option>
+                      <option value="10:00">10:00 AM</option>
+                      <option value="11:00">11:00 AM</option>
+                      <option value="14:00">02:00 PM</option>
+                      <option value="15:00">03:00 PM</option>
+                      <option value="16:00">04:00 PM</option>
+                      {/* Agrega más opciones según sea necesario */}
+                    </select>
+                  </div>
                 </div>
               </div>
               </fieldset>
