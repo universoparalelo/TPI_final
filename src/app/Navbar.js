@@ -10,7 +10,7 @@ import Link from 'next/link'
 const navigation = [
   { name: 'Ver tarifas', href: '/tarifas/ver' },
   { name: 'Solicitar revision', href: '/tarifas/solicitar' },
-  { name: 'Asignar tarifas', href: '/tarifas/asignar' },
+  { name: 'Asignar vehiculos', href: '/tarifas/asignar' },
 ]
 
 export default function Navbar() {
@@ -37,14 +37,17 @@ export default function Navbar() {
           </Link>
         </div>
         
-        <div className="hidden lg:flex lg:gap-x-8 items-center justify-center flex-1">
+        <div className="hidden lg:flex lg:gap-x-8 items-center justify-center">
           {filteredNavigation.map((item) => (
-            <Link key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
+            <Link 
+              key={item.name} 
+              href={item.href} 
+              className={`text-lg font-semibold text-gray-900`}>
               {item.name}
             </Link>
           ))}
-          <div className="ml-8">
-          </div>
+          {/* <div className="ml-8">
+          </div> */}
         </div>
 
         <div className="hidden lg:flex">

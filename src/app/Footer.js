@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
         {/* Copyright */}
         <div className="text-center text-gray-500 text-sm mt-10">
-          © 2024 Your Company, Inc. All rights reserved.
+          © 2024 RTO, Inc. All rights reserved.
         </div>
       </div>
     </footer>

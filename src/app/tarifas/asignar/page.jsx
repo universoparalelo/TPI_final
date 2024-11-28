@@ -77,7 +77,7 @@ export default function Page(){
 
     return (
         <div className="relative isolate px-6 pt-14 lg:px-8">
-            <h1 className="flex items-center justify-center mt-4 text-3xl font-semibold">Turnos sin mecanico asignado</h1>
+            <h1 className="flex items-center justify-center mt-4 text-2xl font-semibold">Turnos sin mecanico asignado</h1>
             <div className="flex flex-col gap-2 mt-4">
                 {Object.keys(turnosPorDia).map((dia) => (
                      (dia === '11-11-2024' || dia === '12-11-2024' || (dia === '13-11-2024' && mostrarDia13)) && (
