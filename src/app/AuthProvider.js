@@ -10,7 +10,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Cargar el usuario del localStorage al montar el componente
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedUser = localStorage.getItem('user');
+    console.log(storedUser);
     if (storedUser) {
       setUser(storedUser);
       setIsLogged(true);

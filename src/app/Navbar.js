@@ -5,6 +5,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Login from './Login'
 import { useAuth } from './AuthProvider' 
+import Link from 'next/link'
 
 const navigation = [
   { name: 'Ver tarifas', href: '/tarifas/ver' },
@@ -25,7 +26,7 @@ export default function Navbar() {
     <header className="absolute inset-x-0 top-0 z-50">
       <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex">
-          <a href="/" className="-m-1.5 p-1.5 flex flex-row gap-2 align-center">
+          <Link href="/" className="-m-1.5 p-1.5 flex flex-row gap-2 align-center">
             <span className="sr-only">Your Company</span>
             <img
               alt=""
@@ -33,14 +34,14 @@ export default function Navbar() {
               className="h-8 w-auto"
             />
             <p className="text-lg font-semibold text-indigo-600">RTO</p>
-          </a>
+          </Link>
         </div>
         
         <div className="hidden lg:flex lg:gap-x-8 items-center justify-center flex-1">
           {filteredNavigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
+            <Link key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
               {item.name}
-            </a>
+            </Link>
           ))}
           <div className="ml-8">
           </div>
@@ -81,9 +82,9 @@ export default function Navbar() {
               </div>
               <div className="mt-4 space-y-4 flex flex-col items-center justify-center">
                 {filteredNavigation.map((item) => (
-                  <a key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
+                  <Link key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
                 <button
                   type="button"
