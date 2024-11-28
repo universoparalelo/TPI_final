@@ -30,7 +30,7 @@ export default function Login({ onClose, onLoginSuccess }) {
   return (
     <div className="fixed inset-0 z-99 flex items-center justify-center bg-gray-800 bg-opacity-75">
       <div className="bg-white p-6 rounded-lg shadow-lg">
-          <a href="/" className="-m-1.5 p-1.5 flex flex-column justify-center gap-2 align-center">
+          <Link href="/" className="-m-1.5 p-1.5 flex flex-column justify-center gap-2 align-center">
             <span className="sr-only">Your Company</span>
             <img
               alt=""
@@ -38,7 +38,7 @@ export default function Login({ onClose, onLoginSuccess }) {
               className="h-8 w-auto"
             />
             <p className="text-lg font-semibold text-indigo-600">RTO</p>
-          </a>
+          </Link>
         <h2 className="text-lg font-semibold mb-4 flex justify-center mt-2">Iniciar sesión</h2>
         <form>
           <div className="mb-4">
