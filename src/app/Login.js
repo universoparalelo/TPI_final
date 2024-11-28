@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 const users = [
   { name: 'admin', password: 'admin', type: 'admin' },
