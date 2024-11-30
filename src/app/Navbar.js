@@ -6,6 +6,9 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Login from './Login'
 import { useAuth } from './AuthProvider' 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
+// importar los estilos globales
+import './globals.css';
 
 const navigation = [
   { name: 'Ver tarifas', href: '/tarifas/ver' },
@@ -15,12 +18,16 @@ const navigation = [
 
 export default function Navbar() {
   const { isLogged, user, login, logout } = useAuth();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [loginOpen, setLoginOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const pathname = usePathname();
+  console.log(isLogged && (user === 'admin' || user === 'mecanico'));
 
   const filteredNavigation = isLogged && (user === 'admin' || user === 'mecanico')
     ? navigation
-    : navigation.filter((item) => item.name !== 'Asignar tarifas');
+    : navigation.filter((item) => item.name !== 'Asignar vehiculos');
+
+  console.log(filteredNavigation);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -42,7 +49,9 @@ export default function Navbar() {
             <Link 
               key={item.name} 
               href={item.href} 
-              className={`text-lg font-semibold text-gray-900`}>
+              className={`text-base font-medium ${
+                pathname === item.href ? 'text-indigo-600' : 'text-gray-500'
+              } hover:text-indigo-600`}>
               {item.name}
             </Link>
           ))}
@@ -85,7 +94,11 @@ export default function Navbar() {
               </div>
               <div className="mt-4 space-y-4 flex flex-col items-center justify-center">
                 {filteredNavigation.map((item) => (
-                  <Link key={item.name} href={item.href} className="text-lg font-semibold text-gray-900">
+                  <Link key={item.name} href={item.href} 
+                        className={`text-base font-medium ${
+                          pathname === item.href ? 'text-indigo-600 underline-active' : 'text-gray-500'
+                        } hover:text-indigo-600`}
+                  >
                     {item.name}
                   </Link>
                 ))}
