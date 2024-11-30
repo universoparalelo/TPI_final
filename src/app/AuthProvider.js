@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     // Cargar el usuario del localStorage al montar el componente
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(storedUser);
+      setUser(JSON.parse(storedUser));
       setIsLogged(true);
     }
   }, []);
@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsLogged(false);
     localStorage.removeItem('user');
+    window.location.href = '/';
   };
 
   return (
