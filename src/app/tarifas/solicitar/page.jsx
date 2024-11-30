@@ -147,6 +147,21 @@ const carBrands = {
                 />
               </div>
               </div>
+              <div className="sm:col-span-3">
+              <label htmlFor="patente" className="block text-sm font-medium text-gray-900">
+                Patente
+              </label>
+              <div className="mt-2">
+                <input
+                  id="patente"
+                  name="patente"
+                  type="text"
+                  autoComplete="patente"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm"
+                  required
+                />
+              </div>
+            </div>
             </div>
             </div>
 
