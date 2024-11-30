@@ -25,6 +25,10 @@ const carBrands = {
       window.location.href = '/tarifas/solicitar/exito';
     };
 
+    const handleCancelar = () => {
+      window.location.href = '/';
+    };
+
     return (
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div className="flex justify-center items-center min-h-screen py-12 px-6 lg:px-8">
@@ -258,7 +262,7 @@ const carBrands = {
             
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="text-sm font-semibold text-gray-900">
+            <button type="button" onClick={handleCancelar} className="text-sm font-semibold text-gray-900">
               Cancelar
             </button>
             <button
